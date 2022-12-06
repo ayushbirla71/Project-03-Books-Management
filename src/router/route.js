@@ -4,6 +4,7 @@ const bookController=require('../controller/booksControler');
 const userController=require('../controller/userControler');
 const reviewControler=require('../controller/reviewController')
 const reviewValidator=require("../middleware/reviewValidations")
+const awsFileUpload=require('../controller/awsFileUpload')
 /////////////////////////////////////////////~Muddelware~//////////////////////////////////
 const middleware=require('../middleware/auth')
 
@@ -18,7 +19,7 @@ router.delete('/books/:bookId',middleware.Authentication,bookController.bookDele
 router.post("/books/:bookId/review",reviewValidator.reviewValidator,reviewControler.createReview)
 router.put("/books/:bookId/review/:reviewId",reviewControler.updateReview)
 router.delete("/books/:bookId/review/:reviewId",reviewControler.deleteReview)
-
+router.post("/awsFileUpload",awsFileUpload.uploadPhoto)
 
 router.all('/*',function(req,res){
     return res.status(400).send({status:false, message:"pls provide valid path"})
